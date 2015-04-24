@@ -58,10 +58,20 @@ class TableViewCell: UITableViewCell {
             if !deleteOnDragRelease { //恢复原状
                 UIView.animateWithDuration(0.2, animations: {self.frame = originalFrame})
             }
-            
         }
-        
-        
+    }
+    
+    
+    //加上下面这个限定函数：只有横向划动才能激活这个手势，竖着划没用
+    override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
+            let translation = panGestureRecognizer.translationInView(superview!)
+            if fabs(translation.x) > fabs(translation.y) {
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
 
