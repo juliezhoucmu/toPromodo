@@ -7,7 +7,7 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>3A2D52F0-3074-444E-B40C-71FB61C0CCC6</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>toPromodo</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>699A0972BB5ABB19CA4D11432F938C4A30830052</key>
@@ -16,7 +16,7 @@
 		<string>github.com:juliezhoucmu/swift.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>toPromodo.xcodeproj/project.xcworkspace</string>
+	<string>toPromodo.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>699A0972BB5ABB19CA4D11432F938C4A30830052</key>
