@@ -10,22 +10,26 @@
 	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>699A0972BB5ABB19CA4D11432F938C4A30830052</key>
+		<string>github.com:juliezhoucmu/toPromodo.git</string>
 		<key>7B96625E9696C5C598FC6F8316128649AF22F0E0</key>
 		<string>github.com:juliezhoucmu/swift.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>toPromodo/toPromodo.xcodeproj/project.xcworkspace</string>
+	<string>toPromodo.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>699A0972BB5ABB19CA4D11432F938C4A30830052</key>
+		<string>../..</string>
 		<key>7B96625E9696C5C598FC6F8316128649AF22F0E0</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:juliezhoucmu/swift.git</string>
+	<string>github.com:juliezhoucmu/toPromodo.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>7B96625E9696C5C598FC6F8316128649AF22F0E0</string>
+	<string>699A0972BB5ABB19CA4D11432F938C4A30830052</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
@@ -34,7 +38,15 @@
 			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>7B96625E9696C5C598FC6F8316128649AF22F0E0</string>
 			<key>IDESourceControlWCCName</key>
-			<string>swift</string>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>699A0972BB5ABB19CA4D11432F938C4A30830052</string>
+			<key>IDESourceControlWCCName</key>
+			<string>toPromodo</string>
 		</dict>
 	</array>
 </dict>

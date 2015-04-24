@@ -13,6 +13,8 @@
 		22F313C71AE9E94B00FA7C1A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22F313C61AE9E94B00FA7C1A /* Images.xcassets */; };
 		22F313CA1AE9E94B00FA7C1A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22F313C81AE9E94B00FA7C1A /* LaunchScreen.xib */; };
 		22F313D61AE9E94B00FA7C1A /* toPromodoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F313D51AE9E94B00FA7C1A /* toPromodoTests.swift */; };
+		22F313E21AE9ECC800FA7C1A /* ToDoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F313E11AE9ECC800FA7C1A /* ToDoItem.swift */; };
+		22F313E41AEAF14A00FA7C1A /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F313E31AEAF14A00FA7C1A /* TableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 		22F313CF1AE9E94B00FA7C1A /* toPromodoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = toPromodoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		22F313D41AE9E94B00FA7C1A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		22F313D51AE9E94B00FA7C1A /* toPromodoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = toPromodoTests.swift; sourceTree = "<group>"; };
+		22F313E11AE9ECC800FA7C1A /* ToDoItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoItem.swift; sourceTree = "<group>"; };
+		22F313E31AEAF14A00FA7C1A /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +83,12 @@
 			children = (
 				22F313BF1AE9E94B00FA7C1A /* AppDelegate.swift */,
 				22F313C11AE9E94B00FA7C1A /* ViewController.swift */,
+				22F313E11AE9ECC800FA7C1A /* ToDoItem.swift */,
 				22F313C31AE9E94B00FA7C1A /* Main.storyboard */,
 				22F313C61AE9E94B00FA7C1A /* Images.xcassets */,
 				22F313C81AE9E94B00FA7C1A /* LaunchScreen.xib */,
 				22F313BD1AE9E94B00FA7C1A /* Supporting Files */,
+				22F313E31AEAF14A00FA7C1A /* TableViewCell.swift */,
 			);
 			path = toPromodo;
 			sourceTree = "<group>";
@@ -213,7 +219,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				22F313C21AE9E94B00FA7C1A /* ViewController.swift in Sources */,
+				22F313E41AEAF14A00FA7C1A /* TableViewCell.swift in Sources */,
 				22F313C01AE9E94B00FA7C1A /* AppDelegate.swift in Sources */,
+				22F313E21AE9ECC800FA7C1A /* ToDoItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
