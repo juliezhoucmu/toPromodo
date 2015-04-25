@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, TableViewCellDelegate {
     @IBOutlet weak var tableView: UITableView!
     var toDoItems = [ToDoItem]()
 
@@ -50,9 +50,22 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         let item = toDoItems[indexPath.row]
         cell.textLabel?.text = item.text
         cell.selectionStyle = .None
+        cell.delegate = self
+        cell.toDoItem = item
         return cell
     }
     
+    func toDoItemDeleted(todoItem: ToDoItem) {
+        let index = (toDoItems as NSArray).indexOfObject(todoItem)
+        if index == NSNotFound {return}
+        
+        toDoItems.removeAtIndex(index)
+        tableView.beginUpdates()
+        let indexPathForRow = NSIndexPath(forRow: index, inSection: 0)
+        tableView.deleteRowsAtIndexPaths([indexPathForRow], withRowAnimation: .Fade)
+        tableView.endUpdates()
+    }
+
     
 
 }

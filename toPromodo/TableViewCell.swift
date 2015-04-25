@@ -8,11 +8,18 @@
 
 import UIKit
 
+protocol TableViewCellDelegate {
+    func toDoItemDeleted(todoItem: ToDoItem)
+}
+
 class TableViewCell: UITableViewCell {
     
     //下面的两个property为pan gesture recognizer 所用
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false //确定该次手势是否需要产生Delete的动作
+    
+    var delegate: TableViewCellDelegate? //需要派一个间谍，但是现在还不知道间谍是谁
+    var toDoItem: ToDoItem? //associated toDoItem
 
 
     //UITableViewCell 继承自UIView， 而UIView conforms to Protocol NSCoding, 所以必须要有一个这样的init函数，这里其实不写这个也没事
@@ -56,13 +63,20 @@ class TableViewCell: UITableViewCell {
             let originalFrame = CGRect(x: 0, y: frame.origin.y, width: bounds.size.width, height: bounds.size.height)
             
             if !deleteOnDragRelease { //恢复原状
+
                 UIView.animateWithDuration(0.2, animations: {self.frame = originalFrame})
+            }
+            else { //删除对应的数据
+                if delegate != nil && toDoItem != nil {
+                    delegate!.toDoItemDeleted(toDoItem!)
+                    
+                }
             }
         }
     }
     
     
-    //加上下面这个限定函数：只有横向划动才能激活这个手势，竖着划没用
+    //加上下面这个限定条件：只有横向划动才能激活这个手势，竖着划没用
     override func gestureRecognizerShouldBegin(gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let panGestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer {
             let translation = panGestureRecognizer.translationInView(superview!)
@@ -73,6 +87,4 @@ class TableViewCell: UITableViewCell {
         }
         return false;
     }
-
-
 }
