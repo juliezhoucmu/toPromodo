@@ -65,5 +65,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.deleteRowsAtIndexPaths([indexPathForRow], withRowAnimation: .Fade)
         tableView.endUpdates()
     }
+    
 }
 
