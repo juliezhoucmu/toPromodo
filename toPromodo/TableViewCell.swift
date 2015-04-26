@@ -39,6 +39,9 @@ class TableViewCell: UITableViewCell {
         label.backgroundColor = UIColor.clearColor()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubview(label)
+        selectionStyle = .None
+        
         // 为自定义的cell定义pan手势 recognizer ，实现：右划 delete的动作
         var recognizer = UIPanGestureRecognizer(target:self,action: "handlePan:")
         recognizer.delegate = self //一条龙的自产自销，这一样必须在自己的类里面定义handlePan函数了
