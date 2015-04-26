@@ -28,7 +28,7 @@ class StrikeThroughText: UILabel {
     
     override init(frame: CGRect) {
         strikeThroughLayer = CALayer() //是一个白色背景的layer,只有strikeThrough = true 的时候才被调用
-        strikeThroughLayer.backgroundColor = UIColor.whiteColor().CGColor //字体是黑色的嘛，所以这条线是白色的
+        strikeThroughLayer.backgroundColor = UIColor.blackColor().CGColor //字体是黑色的嘛，所以这条线是也黑色的
         strikeThroughLayer.hidden = true
         strikeThrough = false
         super.init(frame: frame) //非option的property必须在super.init之前赋值
@@ -45,7 +45,7 @@ class StrikeThroughText: UILabel {
     //只有当strikeThrough被设成true的时候这个函数被调用
     func resizeStrikeThrough() {
         let textSize = text!.sizeWithAttributes([NSFontAttributeName: font])
-        // 创造 白色粗线 框框 -- 字体是黑色的嘛，所以这条线是白色的
+        // 创造 黑色粗线 框框 -- 字体是黑色的嘛，所以这条线是黑色的
         strikeThroughLayer.frame = CGRect(x: 0, y: bounds.size.height/2, width: textSize.width,height: kStrikeOutThickness)
     }
 }

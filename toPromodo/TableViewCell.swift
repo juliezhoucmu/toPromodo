@@ -52,7 +52,7 @@ class TableViewCell: UITableViewCell {
         
         // 给label再加一个sublayer，是它文字的绿色背景
         // 不过一开始的时候先hidden
-        itemCompleteLayer = CALayer(layer: layer) // init from copy
+        itemCompleteLayer = CALayer(layer: layer) // init from copy this cell's layer
         itemCompleteLayer.backgroundColor = UIColor(red: 0.2, green: 0.8, blue: 0.2, alpha: 1.0).CGColor
         itemCompleteLayer.hidden = true
         layer.insertSublayer(itemCompleteLayer, atIndex: 0)
@@ -126,7 +126,8 @@ class TableViewCell: UITableViewCell {
     let kLabelLeftMargin: CGFloat = 15.0
     override func layoutSubviews() {
         super.layoutSubviews()
-        itemCompleteLayer.frame = bounds //绿色背景层跟cell保持一致
+        itemCompleteLayer.frame = bounds //绿色背景层的大小跟cell保持一致
         label.frame = CGRect(x: kLabelLeftMargin, y: 0, width: bounds.size.width - kLabelLeftMargin, height: bounds.size.height) //label层却在cell的右边一些
+
     }
 }
