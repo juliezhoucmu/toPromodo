@@ -18,6 +18,9 @@ class TableViewCell: UITableViewCell {
     var originalCenter = CGPoint()
     var deleteOnDragRelease = false //确定该次手势是否需要产生Delete的动作
     
+    let label: StrikeThroughText
+    var itemCompleteLayer = CALayer()
+    
     var delegate: TableViewCellDelegate? //需要派一个间谍，但是现在还不知道间谍是谁
     var toDoItem: ToDoItem? //associated toDoItem
 
@@ -29,6 +32,12 @@ class TableViewCell: UITableViewCell {
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        //是多么没有存在感啊！ 字体颜色是白色的，背景又被清除了
+        label = StrikeThroughText(frame: CGRect.nullRect)
+        label.textColor = UIColor.whiteColor()
+        label.font = UIFont.boldSystemFontOfSize(16)
+        label.backgroundColor = UIColor.clearColor()
+        
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // 为自定义的cell定义pan手势 recognizer ，实现：右划 delete的动作
         var recognizer = UIPanGestureRecognizer(target:self,action: "handlePan:")
