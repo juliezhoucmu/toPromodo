@@ -42,6 +42,14 @@ class TableViewCell: UITableViewCell {
         addSubview(label)
         selectionStyle = .None
         
+        
+        // 给label再加一个sublayer，是它文字的绿色背景
+        // 不过一开始的时候先hidden
+        itemCompleteLayer = CALayer(layer: layer) // init from copy
+        itemCompleteLayer.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0).CGColor
+        itemCompleteLayer.hidden = true
+        layer.insertSublayer(itemCompleteLayer, atIndex: 0)
+        
         // 为自定义的cell定义pan手势 recognizer ，实现：右划 delete的动作
         var recognizer = UIPanGestureRecognizer(target:self,action: "handlePan:")
         recognizer.delegate = self //一条龙的自产自销，这一样必须在自己的类里面定义handlePan函数了
