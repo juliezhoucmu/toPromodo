@@ -41,8 +41,8 @@ class TableViewCell: UITableViewCell {
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         //是多么没有存在感啊！ 字体颜色是白色的，背景又被清除了
         label = StrikeThroughText(frame: CGRect.nullRect)
-        label.textColor = UIColor.whiteColor()
-        label.font = UIFont.boldSystemFontOfSize(16)
+        label.textColor = UIColor.blackColor()
+//        label.font = UIFont.boldSystemFontOfSize(16)
         label.backgroundColor = UIColor.clearColor()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -53,7 +53,7 @@ class TableViewCell: UITableViewCell {
         // 给label再加一个sublayer，是它文字的绿色背景
         // 不过一开始的时候先hidden
         itemCompleteLayer = CALayer(layer: layer) // init from copy
-        itemCompleteLayer.backgroundColor = UIColor(red: 0.0, green: 0.6, blue: 0.0, alpha: 1.0).CGColor
+        itemCompleteLayer.backgroundColor = UIColor(red: 0.2, green: 0.8, blue: 0.2, alpha: 1.0).CGColor
         itemCompleteLayer.hidden = true
         layer.insertSublayer(itemCompleteLayer, atIndex: 0)
         
@@ -93,11 +93,19 @@ class TableViewCell: UITableViewCell {
             if !deleteOnDragRelease && !completeOnDragRelease { //左划右划都不生效，就恢复原状
                 UIView.animateWithDuration(0.2, animations: {self.frame = originalFrame})
             }
-            else { //删除对应的数据
+                
+            else if deleteOnDragRelease { //删除对应的数据
                 if delegate != nil && toDoItem != nil {
                     delegate!.toDoItemDeleted(toDoItem!)
-                    
                 }
+            }
+            else if completeOnDragRelease {
+                if toDoItem != nil {
+                    toDoItem!.completed  = true
+                }
+                label.strikeThrough = true
+                itemCompleteLayer.hidden = false
+                UIView.animateWithDuration(0.2, animations: {self.frame = originalFrame})
             }
         }
     }
