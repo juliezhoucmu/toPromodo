@@ -25,7 +25,7 @@ class TableViewCell: UITableViewCell {
     var delegate: TableViewCellDelegate? //需要派一个间谍，但是现在还不知道间谍是谁
     var toDoItem: ToDoItem? {//同步更新cell背后的label，如果这个item已经complete了，就让它显示出来
         didSet {
-            label.text = toDoItem!.text //文字变成白色
+            label.text = toDoItem!.text //label的文字和cell的文字重叠显示
             label.strikeThrough = toDoItem!.completed
             itemCompleteLayer.hidden = !label.strikeThrough
         }
@@ -39,10 +39,8 @@ class TableViewCell: UITableViewCell {
     
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        //是多么没有存在感啊！ 字体颜色是白色的，背景又被清除了
         label = StrikeThroughText(frame: CGRect.nullRect)
         label.textColor = UIColor.blackColor()
-//        label.font = UIFont.boldSystemFontOfSize(16)
         label.backgroundColor = UIColor.clearColor()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -52,14 +50,14 @@ class TableViewCell: UITableViewCell {
         
         // 给label再加一个sublayer，是它文字的绿色背景
         // 不过一开始的时候先hidden
-        itemCompleteLayer = CALayer(layer: layer) // init from copy this cell's layer
+        itemCompleteLayer = CALayer(layer: layer) // init from copy this cell's layer,layer不包括text
         itemCompleteLayer.backgroundColor = UIColor(red: 0.2, green: 0.8, blue: 0.2, alpha: 1.0).CGColor
         itemCompleteLayer.hidden = true
         layer.insertSublayer(itemCompleteLayer, atIndex: 0)
         
         // 为自定义的cell定义pan手势 recognizer ，实现：左划 delete的动作， 右划 complete的动作
         var recognizer = UIPanGestureRecognizer(target:self,action: "handlePan:")
-        recognizer.delegate = self //一条龙的自产自销，这一样必须在自己的类里面定义handlePan函数了
+        recognizer.delegate = self //一条龙的自产自销，这一样必须在自己的类里面定义handlePan函数
         addGestureRecognizer(recognizer) //加到自己身上
     }
 
@@ -127,7 +125,7 @@ class TableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         itemCompleteLayer.frame = bounds //绿色背景层的大小跟cell保持一致
-        label.frame = CGRect(x: kLabelLeftMargin, y: 0, width: bounds.size.width - kLabelLeftMargin, height: bounds.size.height) //label层却在cell的右边一些
+        label.frame = CGRect(x: kLabelLeftMargin, y: 0, width: bounds.size.width - kLabelLeftMargin, height: bounds.size.height) //label文字层需要缩进，而itemCompleteLayer是颜色层，需要沾满整行
 
     }
 }
