@@ -22,7 +22,13 @@ class TableViewCell: UITableViewCell {
     var itemCompleteLayer = CALayer()
     
     var delegate: TableViewCellDelegate? //需要派一个间谍，但是现在还不知道间谍是谁
-    var toDoItem: ToDoItem? //associated toDoItem
+    var toDoItem: ToDoItem? {//同步更新cell背后的label，如果这个item已经complete了，就让它显示出来
+        didSet {
+            label.text = toDoItem!.text //文字变成白色
+            label.strikeThrough = toDoItem!.completed
+            itemCompleteLayer.hidden = !label.strikeThrough
+        }
+    }
 
 
     //UITableViewCell 继承自UIView， 而UIView conforms to Protocol NSCoding, 所以必须要有一个这样的init函数，这里其实不写这个也没事
@@ -106,5 +112,12 @@ class TableViewCell: UITableViewCell {
             return false;
         }
         return false;
+    }
+    
+    let kLabelLeftMargin: CGFloat = 15.0
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        itemCompleteLayer.frame = bounds //绿色背景层跟cell保持一致
+        label.frame = CGRect(x: kLabelLeftMargin, y: 0, width: bounds.size.width - kLabelLeftMargin, height: bounds.size.height) //label层却在cell的右边一些
     }
 }
