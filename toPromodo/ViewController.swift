@@ -39,7 +39,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         toDoItems.append(ToDoItem(text: "catch up with Mom"))
         toDoItems.append(ToDoItem(text: "get a hair cut"))
         tableView.rowHeight = 50.0
-//        tableView.backgroundColor = UIColor.blackColor()
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
