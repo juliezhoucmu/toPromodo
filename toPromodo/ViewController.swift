@@ -105,12 +105,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             if viewContainsPoint(cell, point: initialTouchPoints.upper) {
                 upperCellIndex = i
                 // highlight the cell – just for debugging!
-                cell.backgroundColor = UIColor.purpleColor()
+                cell.backgroundColor = UIColor.whiteColor()
             }
             if viewContainsPoint(cell, point: initialTouchPoints.lower) {
                 lowerCellIndex = i
                 // highlight the cell – just for debugging!
-                cell.backgroundColor = UIColor.purpleColor()
+                cell.backgroundColor = UIColor.whiteColor()
             }
         }
         // check whether they are neighbors
@@ -120,7 +120,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             // show placeholder cell
             let precedingCell = visibleCells[upperCellIndex]
             placeHolderCell.frame = CGRectOffset(precedingCell.frame, 0.0, tableView.rowHeight / 2.0)
-            placeHolderCell.backgroundColor = UIColor.redColor()
+            placeHolderCell.backgroundColor = precedingCell.backgroundColor
             tableView.insertSubview(placeHolderCell, atIndex: 0)
         }
     }
@@ -160,7 +160,33 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     
     
     func pinchEnded(recognizer: UIPinchGestureRecognizer) {
+        pinchInProgress = false
         
+        // remove the placeholder cell
+        placeHolderCell.transform = CGAffineTransformIdentity
+        placeHolderCell.removeFromSuperview()
+        
+        if pinchExceededRequiredDistance {
+            pinchExceededRequiredDistance = false
+            
+            // Set all the cells back to the transform identity
+            let visibleCells = self.tableView.visibleCells() as! [TableViewCell]
+            for cell in visibleCells {
+                cell.transform = CGAffineTransformIdentity
+            }
+            
+            // add a new item
+            let indexOffset = Int(floor(tableView.contentOffset.y / tableView.rowHeight))
+            toDoItemAddedAtIndex(lowerCellIndex + indexOffset)
+        } else {
+            // otherwise, animate back to position
+            UIView.animateWithDuration(0.2, delay: 0.0, options: .CurveEaseInOut, animations: {() in
+                let visibleCells = self.tableView.visibleCells() as! [TableViewCell]
+                for cell in visibleCells {
+                    cell.transform = CGAffineTransformIdentity
+                }
+                }, completion: nil)
+        }
     }
     
     
@@ -290,6 +316,27 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             }
         }
     }
+    
+    func toDoItemAddedAtIndex() {
+        toDoItemAddedAtIndex(0)
+    }
+    
+    func toDoItemAddedAtIndex(index: Int) {
+        let toDoItem = ToDoItem(text: "")
+        toDoItems.insert(toDoItem, atIndex: index)
+        tableView.reloadData()
+        // enter edit mode
+        var editCell: TableViewCell
+        let visibleCells = tableView.visibleCells() as! [TableViewCell]
+        for cell in visibleCells {
+            if (cell.toDoItem === toDoItem) {
+                editCell = cell
+                editCell.label.becomeFirstResponder()
+                break
+            }
+        }
+    }
+    
     
     
     func cellDidBeginEditing(editingCell: TableViewCell) {
