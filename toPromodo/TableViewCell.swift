@@ -184,11 +184,17 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
 
     
     func textFieldDidEndEditing(textField: UITextField) {
-        if toDoItem != nil {
-            toDoItem!.text = textField.text
-        }
         if delegate != nil {
             delegate!.cellDidEndEditing(self)
+        }
+
+        if toDoItem != nil {
+            if textField.text == "" {
+                delegate!.toDoItemDeleted(self.toDoItem!)
+            }
+            else {
+                toDoItem!.text = textField.text
+            }
         }
     }
     

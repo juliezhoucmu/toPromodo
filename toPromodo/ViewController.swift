@@ -71,7 +71,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         // this behavior starts when a user pulls down while at the top of the table
         pullDownInProgress = scrollView.contentOffset.y <= 0.0
-        placeHolderCell.backgroundColor = UIColor.redColor()
+        placeHolderCell.backgroundColor = UIColor.whiteColor()
         if pullDownInProgress {
             // add the placeholder
             tableView.insertSubview(placeHolderCell, atIndex: 0)
