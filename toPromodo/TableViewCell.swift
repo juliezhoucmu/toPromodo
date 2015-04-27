@@ -10,6 +10,10 @@ import UIKit
 
 protocol TableViewCellDelegate {
     func toDoItemDeleted(todoItem: ToDoItem)
+    // Indicates that the edit process has begun for the given cell
+    func cellDidBeginEditing(editingCell: TableViewCell)
+    // Indicates that the edit process has committed for the given cell
+    func cellDidEndEditing(editingCell: TableViewCell)
 }
 
 class TableViewCell: UITableViewCell, UITextFieldDelegate {
@@ -182,6 +186,16 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
         if toDoItem != nil {
             toDoItem!.text = textField.text
         }
+        if delegate != nil {
+            delegate!.cellDidEndEditing(self)
+        }
     }
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        if delegate != nil {
+            delegate!.cellDidBeginEditing(self)
+        }
+    }
+    
     
 }
