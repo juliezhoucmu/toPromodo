@@ -162,7 +162,6 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
     func createCueLabel() -> UILabel {
         let label = UILabel(frame: CGRect.nullRect)
         label.textColor = UIColor.redColor()
-        label.font = UIFont.boldSystemFontOfSize(32.0)
         label.backgroundColor = UIColor.clearColor()
         return label
     }
