@@ -12,7 +12,7 @@ protocol TableViewCellDelegate {
     func toDoItemDeleted(todoItem: ToDoItem)
 }
 
-class TableViewCell: UITableViewCell {
+class TableViewCell: UITableViewCell, UITextFieldDelegate {
     
     //下面的两个property为pan gesture recognizer 所用
     var originalCenter = CGPoint()
@@ -47,6 +47,8 @@ class TableViewCell: UITableViewCell {
         label.backgroundColor = UIColor.clearColor()
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        label.delegate = self
+        label.contentVerticalAlignment = .Center
         addSubview(label)
         selectionStyle = .None
         
@@ -161,5 +163,12 @@ class TableViewCell: UITableViewCell {
         return label
     }
     
+    
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        if toDoItem != nil {
+            toDoItem!.text = textField.text
+        }
+    }
     
 }

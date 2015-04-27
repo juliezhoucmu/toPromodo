@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 
 
-class StrikeThroughText: UILabel {
+class StrikeThroughText: UITextField {
     let strikeThroughLayer: CALayer // 子layer,strikeThrough= true是才会显示
     
     var strikeThrough: Bool {
