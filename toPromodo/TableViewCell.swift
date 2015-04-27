@@ -168,7 +168,6 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
         return label
     }
     
-    
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return false
@@ -180,8 +179,6 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
         }
         return false
     }
-
-
     
     func textFieldDidEndEditing(textField: UITextField) {
         if delegate != nil {
