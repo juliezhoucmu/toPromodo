@@ -56,6 +56,57 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
+    
+    
+    
+    // MARK: - UIScrollViewDelegate methods
+    // contains scrollViewDidScroll, and other methods, to keep track of dragging the scrollView
+ 
+    // a cell that is rendered as a placeholder to indicate where a new item is added
+    let placeHolderCell = TableViewCell(style: .Default, reuseIdentifier: "cell")
+    
+    // indicates the state of this behavior
+    var pullDownInProgress = false
+
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        // this behavior starts when a user pulls down while at the top of the table
+        pullDownInProgress = scrollView.contentOffset.y <= 0.0
+        placeHolderCell.backgroundColor = UIColor.redColor()
+        if pullDownInProgress {
+            // add the placeholder
+            tableView.insertSubview(placeHolderCell, atIndex: 0)
+        }
+    }
+    //reposition the placeholder by setting its frame in scrollViewDidScroll method
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        var scrollViewContentOffsetY = scrollView.contentOffset.y
+        if pullDownInProgress && scrollView.contentOffset.y <= 0.0 {
+            // maintain the location of the placeholder
+            placeHolderCell.frame = CGRect(x: 0, y: -tableView.rowHeight,
+                width: tableView.frame.size.width, height: tableView.rowHeight)
+            placeHolderCell.label.text = -scrollViewContentOffsetY > tableView.rowHeight ?
+                "Release to add item" : "Pull to add item"
+            placeHolderCell.alpha = min(1.0, -scrollViewContentOffsetY / tableView.rowHeight)
+        } else {
+            pullDownInProgress = false
+        }
+    }
+
+    // end of scrolling down, check if this pull is far enough to create a new item
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        // check whether the user pulled down far enough
+        if pullDownInProgress && -scrollView.contentOffset.y > tableView.rowHeight {
+            toDoItemAdded()
+        }
+        pullDownInProgress = false
+        placeHolderCell.removeFromSuperview()
+    }
+    
+    
+    
+    // MARK: - TableView Cell Delegate methods
+    // contains add, delete, edit methods
+    
     func toDoItemDeleted(toDoItem: ToDoItem) {
         let index = (toDoItems as NSArray).indexOfObject(toDoItem)
         if index == NSNotFound { return }
@@ -95,8 +146,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.deleteRowsAtIndexPaths([indexPathForRow], withRowAnimation: .Fade)
         tableView.endUpdates()
     }
+
     
-    // MARK: - TableViewCellDelegate methods
+    func toDoItemAdded() {
+        let toDoItem = ToDoItem(text: "")
+        toDoItems.insert(toDoItem, atIndex: 0)
+        tableView.reloadData()
+        // enter edit mode
+        var editCell: TableViewCell
+        let visibleCells = tableView.visibleCells() as! [TableViewCell]
+        for cell in visibleCells {
+            if (cell.toDoItem === toDoItem) {
+                editCell = cell
+                editCell.label.becomeFirstResponder()
+                break
+            }
+        }
+    }
+    
+    
     func cellDidBeginEditing(editingCell: TableViewCell) {
         var editingOffset = tableView.contentOffset.y - editingCell.frame.origin.y as CGFloat
         let visibleCells = tableView.visibleCells() as! [TableViewCell]

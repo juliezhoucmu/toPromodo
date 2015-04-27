@@ -83,15 +83,15 @@
 		22F313BC1AE9E94B00FA7C1A /* toPromodo */ = {
 			isa = PBXGroup;
 			children = (
-				22F313E51AEB330B00FA7C1A /* StrikeThroughText.swift */,
 				22F313BF1AE9E94B00FA7C1A /* AppDelegate.swift */,
 				22F313C11AE9E94B00FA7C1A /* ViewController.swift */,
+				22F313E31AEAF14A00FA7C1A /* TableViewCell.swift */,
 				22F313E11AE9ECC800FA7C1A /* ToDoItem.swift */,
+				22F313E51AEB330B00FA7C1A /* StrikeThroughText.swift */,
 				22F313C31AE9E94B00FA7C1A /* Main.storyboard */,
 				22F313C61AE9E94B00FA7C1A /* Images.xcassets */,
 				22F313C81AE9E94B00FA7C1A /* LaunchScreen.xib */,
 				22F313BD1AE9E94B00FA7C1A /* Supporting Files */,
-				22F313E31AEAF14A00FA7C1A /* TableViewCell.swift */,
 			);
 			path = toPromodo;
 			sourceTree = "<group>";
