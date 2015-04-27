@@ -33,6 +33,8 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
     var toDoItem: ToDoItem? {//同步更新cell背后的label，如果这个item已经complete了，就让它显示出来
         didSet {
             label.text = toDoItem!.text //label的文字和cell的文字重叠显示
+            self.textLabel?.hidden = true;
+            label.font = self.textLabel?.font
             label.strikeThrough = toDoItem!.completed
             itemCompleteLayer.hidden = !label.strikeThrough
         }
