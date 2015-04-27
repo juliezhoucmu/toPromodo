@@ -164,6 +164,11 @@ class TableViewCell: UITableViewCell, UITextFieldDelegate {
     }
     
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+    }
+
     
     func textFieldDidEndEditing(textField: UITextField) {
         if toDoItem != nil {
