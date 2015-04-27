@@ -145,7 +145,20 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
                 cell.transform = CGAffineTransformMakeTranslation(0, delta)
             }
         }
+        
+        // scale the placeholder cell
+        let gapSize = delta * 2
+        let cappedGapSize = min(gapSize, tableView.rowHeight)
+        placeHolderCell.transform = CGAffineTransformMakeScale(1.0, cappedGapSize / tableView.rowHeight)
+        placeHolderCell.label.text = gapSize > tableView.rowHeight ? "Release to add item" : "Pull apart to add item"
+        placeHolderCell.alpha = min(1.0, gapSize / tableView.rowHeight)
+        
+        // has the user pinched far enough?
+        pinchExceededRequiredDistance = gapSize > tableView.rowHeight
+        
     }
+    
+    
     func pinchEnded(recognizer: UIPinchGestureRecognizer) {
         
     }
