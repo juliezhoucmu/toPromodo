@@ -19,6 +19,9 @@ class TableViewCell: UITableViewCell {
     var deleteOnDragRelease = false //确定该次手势是否需要产生Delete的动作
     var completeOnDragRelease = false //确定该次手势是否需要产生Complete的动作
     
+    var tickLabel: UILabel!, crossLabel: UILabel!
+    
+    
     let label: StrikeThroughText
     var itemCompleteLayer = CALayer()
     
@@ -46,6 +49,15 @@ class TableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubview(label)
         selectionStyle = .None
+        
+        tickLabel = createCueLabel()
+        tickLabel.text = "\u{2713}"
+        tickLabel.textAlignment = .Right
+        addSubview(tickLabel)
+        crossLabel = createCueLabel()
+        crossLabel.text = "\u{2717}"
+        crossLabel.textAlignment = .Left
+        addSubview(crossLabel)
         
         
         // 给label再加一个sublayer，是它文字的绿色背景
@@ -83,6 +95,11 @@ class TableViewCell: UITableViewCell {
             center = CGPointMake(originalCenter.x + translation.x, originalCenter.y)
             deleteOnDragRelease  = frame.origin.x < -frame.size.width / 2.0 //左划超过一半才算
             completeOnDragRelease = frame.origin.x > frame.size.width / 2.0 //右划超过一半才算
+            let cueAlpha = fabs(frame.origin.x) / (frame.size.width / 2.0)
+            tickLabel.alpha = cueAlpha
+            crossLabel.alpha = cueAlpha
+            tickLabel.textColor = completeOnDragRelease ? UIColor.greenColor() : UIColor.blackColor()
+            crossLabel.textColor = deleteOnDragRelease ? UIColor.redColor() : UIColor.blackColor()
         }
         
         if recognizer.state == .Ended {
@@ -121,11 +138,28 @@ class TableViewCell: UITableViewCell {
         return false;
     }
     
-    let kLabelLeftMargin: CGFloat = 15.0
+    let kLabelLeftMargin: CGFloat = 15.0 //默认布局下，文字前面的有一定空白，就是这个宽度
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         itemCompleteLayer.frame = bounds //绿色背景层的大小跟cell保持一致
-        label.frame = CGRect(x: kLabelLeftMargin, y: 0, width: bounds.size.width - kLabelLeftMargin, height: bounds.size.height) //label文字层需要缩进，而itemCompleteLayer是颜色层，需要沾满整行
-
+        label.frame = CGRect(x: kLabelLeftMargin, y: 0, width: bounds.size.width - kLabelLeftMargin, height: bounds.size.height) //label文字层需要缩进，而itemCompleteLayer是颜色层，需要占满整行
+        tickLabel.frame = CGRect(x: -KUICuesWidth - kUICuesMargin, y: 0, width: KUICuesWidth, height: bounds.size.height)
+        crossLabel.frame = CGRect(x: bounds.size.width + kUICuesMargin, y: 0, width: KUICuesWidth, height: bounds.size.height)
+        
     }
+    
+    
+    let kUICuesMargin: CGFloat = 10.0
+    let KUICuesWidth: CGFloat = 50.0
+    
+    func createCueLabel() -> UILabel {
+        let label = UILabel(frame: CGRect.nullRect)
+        label.textColor = UIColor.redColor()
+        label.font = UIFont.boldSystemFontOfSize(32.0)
+        label.backgroundColor = UIColor.clearColor()
+        return label
+    }
+    
+    
 }
